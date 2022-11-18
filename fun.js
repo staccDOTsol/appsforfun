@@ -40,7 +40,7 @@ let theran = Math.floor(Math.random()* 100)
 let op = sample[theran].data.author 
 let authors = {}
 
-if(sample[theran].data.num_comments < 1500){
+if(sample[theran].data.num_comments> 50){
     theprompts[uuid].push(op +": " + sample[theran].data.selftext.replace('\n',''))
 try {
     let thread = await (await fetch(sample[theran].data.url.substring(0, sample[theran].data.url.length-1) + '.json')).json()
@@ -101,7 +101,7 @@ let avg = t2 / lengths.length
     }
 }
 else {
-    prompt = ""
+    prompt = "this is a chatbot that answers in a helpful and conversational manner about " + topic + " without any adult or risquee responses.\n"
 }
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
  console.log(prompt)
@@ -125,12 +125,19 @@ const answer = await openai.createCompletion({
   });
    var tprompts2 = [] 
    let c3 = 0
+let tl = 0
   for (var p of theprompts[uuid] ){
+    tl += p.length 
+  }
+  if (tl > 3500){
+    for (var p of theprompts[uuid] ){
+
 if (c3 >1){
     tprompts2.push(p)
 }
     c3++
   }
+}
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
