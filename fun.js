@@ -141,7 +141,7 @@ if (c3 >1){
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
-  res.send(answer.data.choices[0].text)
+  res.send(answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
  catch (err) 
