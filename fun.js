@@ -237,7 +237,7 @@ for (var p of theprompts[uuid]){
  // p = p.replace(uuid, 'You')
   tprompts.push(p)
 }
- prompt += theprompts[uuid].join("\n")+"\nYou: " 
+ prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " 
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
@@ -318,13 +318,12 @@ if (c3 >1){
     c3++
   }
 }
-  tprompts2.push(uuid+": "+req.query.question)
-  tprompts2.push("You: " +answer.data.choices[0].text)
+  tprompts2.push(uuid+": "+answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
 
 
   
-  res.send('You: '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
+  res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
  catch (err) 
