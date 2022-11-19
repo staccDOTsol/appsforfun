@@ -20,7 +20,7 @@ async function addStore(topic, sender, timestamp, text){
   } if (topic == 'Minecraft'){
     child = 'messages2'
   }
-  if (.topic == 'AmongUs'){
+  if (topic == 'AmongUs'){
     child = 'messages3'
   }
   
