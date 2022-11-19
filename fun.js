@@ -217,7 +217,7 @@ let avg = t2 / lengths.length
      let tprompts = []
      for (var p of theprompts[uuid]){
 
-        p = p.replace(uuid, 'You')
+       // p = p.replace(uuid, 'You')
         tprompts.push(p)
      }
     console.log(tprompts)
