@@ -26,7 +26,7 @@ async function getConversation(db, topic, uuid) {
   let col = topic
  
 console.log(uuid)
-  const mCol = collection(db, col);
+  const mCol = collection(db, col, uuid);
   const q = query(mCol, orderBy("timestamp", "asc"), limit(20));
 
   const mSnapshot = await getDocs(q);
