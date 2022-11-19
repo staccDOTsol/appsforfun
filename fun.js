@@ -61,8 +61,16 @@ console.log(history)
 if (!Object.keys(theprompts).includes(uuid) ||  theprompts[uuid].length < 3){
     theprompts[uuid] = []
     let done = false 
-
-    let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=relevance&show=message&sort=num_comments&limit=100&q="+req.query.question)).json()
+if (topic == 'roblox'){
+  topic = 'EroticRolePlay'
+}
+else if (topic == 'minecraft'){
+  topic = 'DirtyPenPals'
+}
+else if (topic == 'amongus'){
+  topic = 'dirtyr4r'
+}
+    let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=relevance&show=message&sort=num_comments&nsfw=1&limit=100&q="+req.query.question)).json()
     sample = sample.data.children 
 while (!done){
 
