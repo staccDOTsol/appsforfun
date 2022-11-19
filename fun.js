@@ -63,7 +63,7 @@ console.log(uuid)
   }
   const mSnapshot = await getDocs(mCol);
   console.log(mSnapshot)
-  const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n',''));
+  const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n','').replace(uuid, Math.random().toString()));
   console.log(messageHistory)
   return ( messageHistory);
 } catch (err){
@@ -237,7 +237,7 @@ else {
 let tprompts = []
 let urr = uuid
 for (var p of theprompts[urr]){
- p = p.replace(uuid, Math.random().toString())
+ //p = p.replace(uuid, Math.random().toString())
   tprompts.push(p)
 }
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " + req.query.question + "\n\nYou: Rephrasing " + req.query.question + "'s point, using much smarter and more articulate words,  " 
