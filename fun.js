@@ -125,18 +125,19 @@ let prompt = ""
 let history = (await getConversation(db, topic, uuid))
 console.log(history)
 theprompts[uuid] = history
-if (history.length == 0){
-    theprompts[uuid] = []
-    let done = false 
 if (topic == 'roblox'){
   topic = 'mindcrack'
 }
 else if (topic == 'minecraft'){
   topic = 'crazyideas'
 }
-else if (topic == 'amongus'){
+else if (topic == 'AmongUs'){
   topic = 'showerthoughts'
 }
+if (history.length == 0){
+    theprompts[uuid] = []
+    let done = false 
+
     let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=relevance&show=message&sort=num_comments&nsfw=1&limit=100&q="+req.query.question)).json()
     sample = sample.data.children 
 while (!done){
