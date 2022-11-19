@@ -6,10 +6,40 @@ const cors = require('cors')
 let app = new express()
 let fetch = require('node-fetch') 
 const { Configuration, OpenAIApi } = require("openai");
+const { initializeApp } = require('firebase/app');
+const { getFirestore, collection, getDocs } = require( 'firebase/firestore/lite' );
+
+var serviceAccount = require("./serviceAccountKey.json");
+console.log(serviceAccount)
+
+
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = serviceAccount;
+
+const fb = initializeApp(firebaseConfig);
+const db = getFirestore(fb);
+// Get a list of cities from your database
+async function getConversation(db, topic, uuid) {
+  let col = 'messages'
+  if (topic == 'minecraft'){
+    col = 'messages2'
+  }
+else  if (topic == 'amongus'){
+  col = 'messages3'
+}
+  const mCol = collection(db, col);
+  const mSnapshot = await getDocs(mCol);
+  const messageHistory = mSnapshot.docs.map(doc => doc.data()).filter((doc=> doc.uuid == uuid));
+  return messageHistory;
+}
+
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+
+
 const openai = new OpenAIApi(configuration);
 
 app.use(bodyParser())
@@ -24,6 +54,8 @@ let winner
 let w = 0
 let c2 = 0
 let prompt = ""
+let history = await getConversation(db, topic, uuid) 
+console.log(history)
 if (!Object.keys(theprompts).includes(uuid) ||  theprompts[uuid].length < 3){
     theprompts[uuid] = []
     let done = false 
