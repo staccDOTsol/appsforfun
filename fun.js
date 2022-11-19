@@ -70,7 +70,7 @@ let topic = req.query.topic
 let prompt = (await getConversation(db, topic, uuid))
 prompt = (prompt.join('\n'))
   const ress = await openai.createImage({
-    prompt:prompt.length > 666 ? prompt.substring(prompt.length-666, prompt.length) : prompt,
+    prompt:prompt.length > 1666 ? prompt.substring(prompt.length-1666, prompt.length) : prompt,
     n: 1,
     size: "1024x1024",
   });
@@ -212,11 +212,11 @@ let avg = t2 / lengths.length
 else {
     prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
 }
- prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
+ prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
-      prompt:prompt.length > 666 ? prompt.substring(prompt.length-666, prompt.length) : prompt,
+      prompt:prompt.length > 1666 ? prompt.substring(prompt.length-1666, prompt.length) : prompt,
       n: 1,
       size: "1024x1024",
     });
