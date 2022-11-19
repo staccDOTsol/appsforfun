@@ -28,9 +28,9 @@ else  if (topic == 'amongus'){
   col = 'messages3'
 }
   const mCol = collection(db, col);
-  const q = query(mCol, where("uuid", "==", uuid));
+  //const q = query(mCol, where("uuid", "==", uuid));
 
-  const mSnapshot = await getDocs(q);
+  const mSnapshot = await getDocs(mCol);
   const messageHistory = mSnapshot.docs.map(doc => doc.data());
   return messageHistory;
 }
