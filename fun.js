@@ -27,7 +27,7 @@ async function getConversation(db, topic, uuid) {
  
 console.log(uuid)
   const mCol = collection(db, col);
-  const q = query(mCol, orderBy("timestamp", "desc"), limit(10));
+  const q = query(mCol, orderBy("timestamp", "asc"), limit(20));
 
   const mSnapshot = await getDocs(q);
   console.log(mSnapshot)
@@ -94,7 +94,7 @@ prompt = (prompt.join('\n'))
        const result = await tx2.upload()
        const link = `https://arweave.net/${result.id}`;
 
-       await setDoc(doc(db, topic), {
+       await setDoc(doc(db, topic, uuid), {
   
         text: link, 
         timestamp: new Date(), 
