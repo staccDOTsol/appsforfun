@@ -159,7 +159,7 @@ if (history.length == 0){
     theprompts[uuid] = []
     let done = false 
 
-    let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=relevance&show=message&sort=num_comments&nsfw=1&limit=100&q="+req.query.question)).json()
+    let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=top&show=message&sort=num_comments&nsfw=1&limit=100&q="+req.query.question)).json()
     sample = sample.data.children 
 while (!done){
 
@@ -171,7 +171,7 @@ let theran = Math.floor(Math.random()* 100)
 let op = sample[theran].data.author 
 let authors = {}
 
-if(sample[theran].data.num_comments> 15){
+if(sample[theran].data.num_comments> 55){
     theprompts[uuid].push(op +": " + sample[theran].data.selftext.replace('\n',''))
 try {
     let thread = await (await fetch(sample[theran].data.url.substring(0, sample[theran].data.url.length-1) + '.json')).json()
