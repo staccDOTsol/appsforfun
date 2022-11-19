@@ -130,7 +130,7 @@ if (req.query.question == 'image'){
     
     let topic = req.query.topic 
   
-let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.query.question+'!!!\n'
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
     console.log(prompt)
       const ress = await openai.createImage({
@@ -189,7 +189,7 @@ let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.que
         }
       }
 
-let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.query.question+'!!!\n'
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 console.log(prompt)
 const answer = await openai.createCompletion({
     model: "davinci:ft-personal-2022-11-19-20-53-39",
