@@ -26,7 +26,7 @@ async function getConversation(db, topic, uuid) {
   let col = topic
  
 console.log(uuid)
-  const mCol = collection(db, col, uuid);
+  const mCol = collection(db, col);
   const q = query(mCol, orderBy("timestamp", "asc"), limit(20));
 
   const mSnapshot = await getDocs(q);
@@ -94,7 +94,7 @@ prompt = (prompt.join('\n'))
        const result = await tx2.upload()
        const link = `https://arweave.net/${result.id}`;
 
-       await setDoc(doc(db, topic, uuid), {
+       await setDoc(doc(db, topic, new Date().toString()), {
   
         text: link, 
         timestamp: new Date(), 
@@ -102,10 +102,10 @@ prompt = (prompt.join('\n'))
       });
       res.send(200)
     } catch (err){
-      console.log(err)
+      console.log(err.response.data.error)
       res.send(500)
     }} catch (err){
-      console.log(err)
+      console.log(err.response.data.error)
       res.send(500)
     }
 })
@@ -119,8 +119,10 @@ if (req.query.question == 'image'){
     let uuid = req.query.uuid
     
     let topic = req.query.topic 
-    let prompt = (await getConversation(db, topic, uuid))
-    prompt = (prompt.join('\n'))
+  
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\nFrancine: "+req.query.question+'!!!\n'+"Carlos: "
+
+    console.log(prompt)
       const ress = await openai.createImage({
         prompt:prompt.length > 1666 ? prompt.substring(prompt.length-1666, prompt.length) : prompt,
         n: 1,
@@ -157,7 +159,7 @@ if (req.query.question == 'image'){
            const result = await tx2.upload()
            const link = `https://arweave.net/${result.id}`;
     
-           await setDoc(doc(db, topic, uuid), {
+           await setDoc(doc(db, topic, new Date().toString()), {
       
             text: link, 
             timestamp: new Date(), 
@@ -170,14 +172,15 @@ if (req.query.question == 'image'){
           res.send(500)
           return
         }} catch (err){
-          console.log(err)
-          res.send(500)
+
+          console.log(err.response.data.error)
+                    res.send(500)
           return
         }
       }
 
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\nFrancine: "+req.query.question+'!!!\n'+"Carlos: "
-
+console.log(prompt)
 const answer = await openai.createCompletion({
     model: "davinci:ft-personal-2022-11-19-20-53-39",
     prompt: "This is a dialogue horror story written by Stephen King. Stephen Edwin King (born September 21, 1947) is an American author of horror, supernatural fiction, suspense, crime, science-fiction, and fantasy novels. Described as the \"King of Horror\", a play on his surname and a reference to his high standing in pop culture,[2] his books have sold more than 350 million copies,[3] and many have been adapted into films, television series, miniseries, and comic books. King has published 64 novels, including seven under the pen name Richard Bachman, and five non-fiction books.[4] He has also written approximately 200 short stories, most of which have been published in book collections.[5][6] King has received Bram Stoker Awards, World Fantasy Awards, and British Fantasy Society Awards. In 2003, the National Book Foundation awarded him the Medal for Distinguished Contribution to American Letters.[7] He has also received awards for his contribution to literature for his entire bibliography, such as the 2004 World Fantasy Award for Life Achievement and the 2007 Grand Master Award from the Mystery Writers of America.[8] In 2015, he was awarded with a National Medal of Arts from the U.S. National Endowment for the Arts for his contributions to literature.[9]King's formula for learning to write well is: 'Read and write four to six hours a day. If you cannot find the time for that, you can't expect to become a good writer.' He sets out each day with a quota of 2000 words and will not stop writing until it is met. He also has a simple definition for talent in writing: 'If you wrote something for which someone sent you a check, if you cashed the check and it didn't bounce, and if you then paid the light bill with the money, I consider you talented.'[108] \
@@ -194,13 +197,13 @@ const answer = await openai.createCompletion({
   });
   
   console.log(answer.data.choices)
-  await setDoc(doc(db, topic, uuid), {
+  await setDoc(doc(db, topic, new Date().toString()), {
   
     text: 'User: ' + req.query.question + '!!!' ,
     timestamp: new Date(), 
     sender: uuid
   });   
-  await setDoc(doc(db, topic, uuid), {
+  await setDoc(doc(db, topic, new Date().toString()), {
   
         text: 'You: ' + answer.data.choices[0].text+ '###', 
         timestamp: new Date(), 
