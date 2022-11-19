@@ -323,7 +323,7 @@ if (c3 >1){
   }
 
   
-  res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
+  res.send('You: '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
  catch (err) 
