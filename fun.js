@@ -326,7 +326,7 @@ if (c3 >1){
 
 
   
-  console.log(answer)
+  console.log(answer.data.choices[0])
   res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
