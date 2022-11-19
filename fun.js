@@ -237,7 +237,7 @@ else {
 let tprompts = []
 
 for (var p of theprompts[uuid]){
- // p = p.replace(uuid, 'You')
+ p = p.replace(uuid, Math.random().toString())
   tprompts.push(p)
 }
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " + req.query.question + "\n\nYou: Rephrasing " + req.query.question + "'s point, using much smarter and more articulate words,  " 
