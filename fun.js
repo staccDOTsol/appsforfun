@@ -199,10 +199,8 @@ let avg = t2 / lengths.length
      let tprompts = []
      for (var p of theprompts[uuid]){
 
-        if (p.length > avg ){
-        p = p.replace(p.split(':')[0], 'You')
+        p = p.replace(uuid, 'You')
         tprompts.push(p)
-        }
      }
     console.log(tprompts)
      theprompts[uuid] = tprompts
@@ -213,7 +211,12 @@ let avg = t2 / lengths.length
 else {
     prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
 }
- prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " 
+for (var p of theprompts[uuid]){
+
+  p = p.replace(uuid, 'You')
+  tprompts.push(p)
+}
+ prompt += theprompts[uuid].join("\n")+"\nYou: " 
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
