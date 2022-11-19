@@ -318,7 +318,7 @@ if (c3 >1){
     });
     
   }
-  for (var bla of theprompts[uuid]){
+  for (var bla of [theprompts[uuid][theprompts[uuid].length-2],theprompts[uuid][theprompts[uuid].length-1]]){
     addStore(uuid, new Date(), bla)
   }
 
