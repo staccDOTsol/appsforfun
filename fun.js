@@ -13,14 +13,14 @@ const { getFirestore, collection, getDocs, setDoc, doc, query, where  } = requir
 
 var serviceAccount = require("./serviceAccountKey.json");
 console.log(serviceAccount)
-async function addStore(sender, timestamp, text){
-  let child 
-  if (req.query.topic == 'roblox'){
+async function addStore(topic, sender, timestamp, text){
+  let child = topic 
+  if (topic == 'roblox'){
     child = 'messages'
-  } if (req.query.topic == 'Minecraft'){
+  } if (topic == 'Minecraft'){
     child = 'messages2'
   }
-  if (req.query.topic == 'AmongUs'){
+  if (.topic == 'AmongUs'){
     child = 'messages3'
   }
   
@@ -222,7 +222,7 @@ let avg = t2 / lengths.length
      }
     console.log(tprompts)
      theprompts[uuid] = tprompts
-     addStore(author, new Date(), tprompts[uuid][tprompts[uuid].length-3])
+     addStore(topic,author, new Date(), tprompts[uuid][tprompts[uuid].length-3])
 
       prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
     
