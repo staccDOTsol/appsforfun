@@ -22,6 +22,7 @@ const fb = initializeApp(firebaseConfig);
 const db = getFirestore(fb);
 // Get a list of cities from your database
 async function getConversation(db, topic, uuid) {
+  try {
   let col = 'messages'
   if (topic == 'minecraft'){
     col = 'messages2'
@@ -29,16 +30,24 @@ async function getConversation(db, topic, uuid) {
 else  if (topic == 'amongus'){
   col = 'messages3'
 }
+console.log(uuid)
   const mCol = collection(db, col);
-  const q = query(mCol, where("uuid", "==", uuid));
+  const q = query(mCol, where("sender", "==", uuid));
       const aSs = await getDocs(q);
+      console.log(aSs)
       console.log(aSs.docs.map(doc => doc.data()))
       if (aSs.docs.map(doc => doc.data()).length == 0){
+
         return []
   }
   const mSnapshot = await getDocs(mCol);
-  const messageHistory = mSnapshot.docs.map(doc => doc.data());
-  return messageHistory;
+  console.log(mSnapshot)
+  const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n',''));
+  console.log(messageHistory)
+  return (messageHistory[messageHistory.length-10, messageHistory.length]);
+} catch (err){
+return []  
+}
 }
 
 
@@ -58,9 +67,9 @@ app.get('/winnerwinnerchickumdinner', async function (req, res){
 let uuid = req.query.uuid
 
 let topic = req.query.topic 
-let prompt = (await getConversation(db, topic, uuid)).join('\n')
+let prompt = (await getConversation(db, topic, uuid))
   const ress = await openai.createImage({
-    prompt,
+    prompt: prompt ? prompt : 'test',
     n: 1,
     size: "1024x1024",
   });
