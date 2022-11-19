@@ -197,17 +197,12 @@ const answer = await openai.createCompletion({
   });
   
   console.log(answer.data.choices)
-  await setDoc(doc(db, topic, new Date().toString()), {
-  
-    text: 'Francine: ' + req.query.question + '!!!' ,
-    timestamp: new Date(), 
-    sender: uuid
-  });   
+
   await setDoc(doc(db, topic, new Date().toString()), {
   
         text: 'Carlos: ' + answer.data.choices[0].text+ '###', 
         timestamp: new Date(), 
-        sender: uuid
+        sender: ''
       });
   res.send( answer.data.choices[0].text )
 
