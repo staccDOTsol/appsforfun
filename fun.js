@@ -222,7 +222,7 @@ let avg = t2 / lengths.length
      }
     console.log(tprompts)
      theprompts[uuid] = tprompts
-     addStore(topic,author, new Date(), tprompts[tprompts.length-3])
+     addStore(topic,author, new Date(), tprompts[tprompts.length-1])
 
       prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
     
