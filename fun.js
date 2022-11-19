@@ -240,7 +240,7 @@ for (var p of theprompts[uuid]){
  // p = p.replace(uuid, 'You')
   tprompts.push(p)
 }
- prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " + req.query.question + "\n\nYou: Rephrasing " + uuid + "'s point, using much smarter and more articulate words,  " 
+ prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " + req.query.question + "\n\nYou: Rephrasing " + req.query.question + "'s point, using much smarter and more articulate words,  " 
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
