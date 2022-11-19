@@ -300,8 +300,8 @@ const answer = await openai.createCompletion({
     temperature: 0.9,
     max_tokens: 600,
     top_p: 0.3,
-    frequency_penalty: 0.4,
-    presence_penalty: 0.8
+    frequency_penalty: 0.1,
+    presence_penalty: 0.2
   });
    var tprompts2 = [] 
    let c3 = 0
@@ -323,6 +323,7 @@ if (c3 >1){
 
 
   
+  console.log(answer)
   res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
