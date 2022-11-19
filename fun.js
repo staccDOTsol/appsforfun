@@ -30,8 +30,11 @@ else  if (topic == 'amongus'){
   col = 'messages3'
 }
   const mCol = collection(db, col);
-  //const q = query(mCol, where("uuid", "==", uuid));
-
+  const q = query(mCol, where("uuid", "==", uuid));
+  const aSs = await getDocs(q);
+  if (aSs.length == 0){
+    return []
+  }
   const mSnapshot = await getDocs(mCol);
   const messageHistory = mSnapshot.docs.map(doc => doc.data());
   return messageHistory;
@@ -107,7 +110,7 @@ let c2 = 0
 let prompt = ""
 let history = await getConversation(db, topic, uuid) 
 console.log(history)
-if (!Object.keys(theprompts).includes(uuid) ||  theprompts[uuid].length < 3){
+if (history.length == 0){
     theprompts[uuid] = []
     let done = false 
 if (topic == 'roblox'){
