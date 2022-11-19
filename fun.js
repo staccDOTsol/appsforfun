@@ -68,9 +68,9 @@ let uuid = req.query.uuid
 
 let topic = req.query.topic 
 let prompt = (await getConversation(db, topic, uuid))
-console.log(prompt.join('\n'))
+prompt = (prompt.join('\n'))
   const ress = await openai.createImage({
-    prompt:prompt.length > 666 & prompt.substring(prompt.length-666, prompt.length),
+    prompt:prompt.length > 666 ? prompt.substring(prompt.length-666, prompt.length) : prompt,
     n: 1,
     size: "1024x1024",
   });
@@ -216,7 +216,7 @@ else {
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
-      prompt:prompt.length > 666 & prompt.substring(prompt.length-666, prompt.length),
+      prompt:prompt.length > 666 ? prompt.substring(prompt.length-666, prompt.length) : prompt,
       n: 1,
       size: "1024x1024",
     });
