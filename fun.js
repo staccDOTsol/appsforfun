@@ -273,7 +273,7 @@ const answer = await openai.createCompletion({
     prompt,
     temperature: 0.9,
     max_tokens: 600,
-    top_p: 0.1,
+    top_p: 0.5,
     frequency_penalty: 0.9,
     presence_penalty: 0.5
   });
