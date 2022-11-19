@@ -319,7 +319,7 @@ if (c3 >1){
     
   }
   for (var bla of theprompts[uuid]){
-    addStore(uuid, new Date().getTime(), bla)
+    addStore(uuid, new Date(), bla)
   }
 
   
