@@ -7,7 +7,7 @@ let app = new express()
 let fetch = require('node-fetch') 
 const { Configuration, OpenAIApi } = require("openai");
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs } = require( 'firebase/firestore/lite' );
+const { getFirestore, collection, getDocs, query, where  } = require( 'firebase/firestore/lite' );
 
 var serviceAccount = require("./serviceAccountKey.json");
 console.log(serviceAccount)
@@ -28,8 +28,10 @@ else  if (topic == 'amongus'){
   col = 'messages3'
 }
   const mCol = collection(db, col);
-  const mSnapshot = await getDocs(mCol);
-  const messageHistory = mSnapshot.docs.map(doc => doc.data()).filter((doc=> doc.uuid == uuid));
+  const q = query(mCol, where("uuid", "==", uuid));
+
+  const mSnapshot = await getDocs(q);
+  const messageHistory = mSnapshot.docs.map(doc => doc.data());
   return messageHistory;
 }
 
