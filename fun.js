@@ -212,7 +212,7 @@ let avg = t2 / lengths.length
 else {
     prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
 }
- prompt += theprompts[uuid].join("\n")+"\n(rephrasing "+ req.query.question+" keeping within the " +  topic + " theme): " 
+ prompt += theprompts[uuid].join("\n")+"\n"+uuid+": " 
  if (req.query.question == 'image'){
   console.log(prompt.join('\n'))
     const ress = await openai.createImage({
@@ -295,7 +295,7 @@ if (c3 >1){
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
-  res.send(answer.data.choices[0].text.replace('\n','').replace('\n',''))
+  res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
  catch (err) 
