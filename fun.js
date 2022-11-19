@@ -124,7 +124,6 @@ const answer = await openai.createCompletion({
     top_p: 0.3,
     frequency_penalty: 0.1,
     presence_penalty: 0.2,
-    stop:["!!!"]
 
   });
   
@@ -135,7 +134,7 @@ const answer = await openai.createCompletion({
         timestamp: new Date(), 
         sender: uuid
       });
-  res.send( 200 )
+  res.send( answer.data.choices[0].text.replace('\n','').replace('\n','')  )
 
 }
  catch (err) 
