@@ -45,7 +45,7 @@ async function getConversation(db, topic, uuid) {
   if (topic == 'Minecraft'){
     col = 'messages2'
   }
-else  if (topic == 'amongus'){
+else  if (topic == 'AmongUs'){
   col = 'messages3'
 }
 console.log(uuid)
@@ -296,9 +296,9 @@ const answer = await openai.createCompletion({
     prompt,
     temperature: 0.9,
     max_tokens: 600,
-    top_p: 0.5,
-    frequency_penalty: 0.9,
-    presence_penalty: 0.5
+    top_p: 0.1,
+    frequency_penalty: 0.1,
+    presence_penalty: 0.1
   });
    var tprompts2 = [] 
    let c3 = 0
