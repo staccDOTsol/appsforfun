@@ -14,6 +14,7 @@ const { getFirestore, collection, getDocs, setDoc, doc, query, where  } = requir
 var serviceAccount = require("./serviceAccountKey.json");
 console.log(serviceAccount)
 async function addStore(topic, sender, timestamp, text){
+  try {
   let child = topic 
   if (topic == 'roblox'){
     child = 'messages'
@@ -30,7 +31,9 @@ async function addStore(topic, sender, timestamp, text){
     timestamp, 
     sender 
   });
-  
+} catch (err){
+
+}
 }
 
 // TODO: Replace the following with your app's Firebase project configuration
