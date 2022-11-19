@@ -121,7 +121,7 @@ let c2 = 0
 let prompt = ""
 let history = (await getConversation(db, topic, uuid)).join('\n\n')
 console.log(history)
-
+theprompts[uuid] = history
 if (history.length == 0){
     theprompts[uuid] = []
     let done = false 
