@@ -32,6 +32,7 @@ else  if (topic == 'amongus'){
   const mCol = collection(db, col);
   const q = query(mCol, where("uuid", "==", uuid));
       const aSs = await getDocs(q);
+      console.log(aSs.docs.map(doc => doc.data()))
       if (aSs.docs.map(doc => doc.data()).length == 0){
         return []
   }
