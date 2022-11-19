@@ -299,7 +299,7 @@ if (c3 >1){
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
-  function addStore(sender, timestamp, text){
+  async function addStore(sender, timestamp, text){
     let child 
     if (req.query.topic == 'roblox'){
       child = 'messages'
@@ -310,14 +310,13 @@ if (c3 >1){
       child = 'messages2'
     }
     
+    await setDoc(doc(db, child, Math.random().toString()), {
     
-    var storesRef = db.child();
-    var newStoreRef = storesRef.push(child);
-    newStoreRef.set({
       text, 
       timestamp, 
       sender 
     });
+    
   }
   for (var bla of theprompts[uuid]){
     addStore(uuid, new Date().getTime(), bla)
