@@ -31,7 +31,7 @@ console.log(uuid)
 
   const mSnapshot = await getDocs(q);
   console.log(mSnapshot)
-  const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n',''));
+  const messageHistory = mSnapshot.docs.map(doc => doc.data().text);
   console.log(messageHistory)
   return ( messageHistory);
 } catch (err){
@@ -202,11 +202,11 @@ const answer = await openai.createCompletion({
   });   
   await setDoc(doc(db, topic, uuid), {
   
-        text: 'You: ' + answer.data.choices[0].text.replace('\n','').replace('\n','') + '###', 
+        text: 'You: ' + answer.data.choices[0].text+ '###', 
         timestamp: new Date(), 
         sender: uuid
       });
-  res.send( answer.data.choices[0].text.replace('\n','').replace('\n','')  )
+  res.send( answer.data.choices[0].text )
 
 }
  catch (err) 
