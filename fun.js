@@ -212,7 +212,7 @@ else {
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
  if (req.query.question == 'image'){
   const ress = await openai.createImage({
-    prompt: prompt ? prompt : 'test',
+    prompt: prompt.split('\n')[prompt.split('\n').length-3,prompt.split('\n').length] ? prompt : 'test',
     n: 1,
     size: "1024x1024",
   });
