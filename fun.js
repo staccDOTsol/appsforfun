@@ -119,7 +119,7 @@ let winner
 let w = 0
 let c2 = 0
 let prompt = ""
-let history = (await getConversation(db, topic, uuid)).join('\n\n')
+let history = (await getConversation(db, topic, uuid))
 console.log(history)
 theprompts[uuid] = history
 if (history.length == 0){
