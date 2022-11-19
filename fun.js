@@ -290,6 +290,7 @@ let a3 =Math.floor(Math.random() * results.length)
 let a4 =Math.floor(Math.random() * results.length)
 let prompt = "this is a chatbot that answers like " + author + " would, keeping in character at all times.\nYou: How many pounds are in a kilogram?\n" + author + ": There are 2.2 pounds in a kilogram. "+results[a2].content+"\nYou: What does HTML stand for?\n" + author + ": Hypertext Markup Language.  "+results[a1].content+"\nYou: When did the first airplane fly?\n" + author + ": On December 17, 1903, Wilbur and Orville Wright made the first flights.  "+results[a3].content+"\nYou: What is the meaning of life?\n" + author + results[a4].content+": \nYou: " + req.query.question +"\n" + author + ":"
 */
+
 const answer = await openai.createCompletion({
     model: "text-davinci-002",
     prompt,
@@ -319,7 +320,7 @@ if (c3 >1){
   theprompts[uuid] = tprompts2
 
   for (var bla of [theprompts[uuid][theprompts[uuid].length-2],theprompts[uuid][theprompts[uuid].length-1]]){
-    addStore(uuid, new Date(), bla)
+    //addStore(uuid, new Date(), bla)
   }
 
   
