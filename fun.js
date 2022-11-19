@@ -222,6 +222,8 @@ let avg = t2 / lengths.length
      }
     console.log(tprompts)
      theprompts[uuid] = tprompts
+     addStore(author, new Date(), tprompts[uuid][tprompts[uuid].length-3])
+
       prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
     
     }
@@ -320,7 +322,6 @@ if (c3 >1){
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
 
- addStore(author, new Date(), theprompts[uuid][theprompts[uuid].length-3])
 
   
   res.send('You: '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
