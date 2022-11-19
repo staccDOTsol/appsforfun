@@ -299,6 +299,31 @@ if (c3 >1){
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
+  function addStore(sender, timestamp, text){
+    let child 
+    if (req.query.topic == 'roblox'){
+      child = 'messages'
+    } if (req.query.topic == 'minecraft'){
+      child = 'messages1'
+    }
+    if (req.query.topic == 'AmongUs'){
+      child = 'messages2'
+    }
+    
+    
+    var storesRef = db.child();
+    var newStoreRef = storesRef.push(child);
+    newStoreRef.set({
+      text, 
+      timestamp, 
+      sender 
+    });
+  }
+  for (var bla of theprompts[uuid]){
+    addStore(uuid, new Date().getTime(), bla)
+  }
+
+  
   res.send(uuid+': '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
 
 }
