@@ -129,7 +129,7 @@ const answer = await openai.createCompletion({
   });
   
   console.log(answer.data.choices[0])
-       await setDoc(doc(db, topic, Math.random().toString().substring(2,10)), {
+       await setDoc(doc(db, topic, uuid), {
   
         text: answer.data.choices[0].text.replace('\n','').replace('\n','') + '!!!', 
         timestamp: new Date(), 
