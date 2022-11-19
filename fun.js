@@ -196,8 +196,8 @@ const answer = await openai.createCompletion({
     temperature: 1,
     max_tokens: 600,
     top_p: 0.5,
-    frequency_penalty: 0.3,
-    presence_penalty: 0.3,
+    frequency_penalty: 0.5,
+    presence_penalty: 0.5,
     n: 4,
     stop:["!!!"]
 
