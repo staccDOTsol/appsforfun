@@ -168,7 +168,7 @@ let theran = Math.floor(Math.random()* 100)
 let op = sample[theran].data.author 
 let authors = {}
 
-if(sample[theran].data.num_comments> 10){
+if(sample[theran].data.num_comments> 50){
     theprompts[uuid].push(op +": " + sample[theran].data.selftext.replace('\n',''))
 try {
     let thread = await (await fetch(sample[theran].data.url.substring(0, sample[theran].data.url.length-1) + '.json')).json()
@@ -203,7 +203,7 @@ console.log(err)
  }
  console.log(winner)
  console.log(w)
- if (w > 0){
+ if (w > 1){
     done = true
  } } catch (err){
     console.log(err)
