@@ -13,7 +13,25 @@ const { getFirestore, collection, getDocs, setDoc, doc, query, where  } = requir
 
 var serviceAccount = require("./serviceAccountKey.json");
 console.log(serviceAccount)
-
+async function addStore(sender, timestamp, text){
+  let child 
+  if (req.query.topic == 'roblox'){
+    child = 'messages'
+  } if (req.query.topic == 'Minecraft'){
+    child = 'messages2'
+  }
+  if (req.query.topic == 'AmongUs'){
+    child = 'messages3'
+  }
+  
+  await setDoc(doc(db, child, Math.random().toString()), {
+  
+    text, 
+    timestamp, 
+    sender 
+  });
+  
+}
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = serviceAccount;
@@ -24,7 +42,7 @@ const db = getFirestore(fb);
 async function getConversation(db, topic, uuid) {
   try {
   let col = 'messages'
-  if (topic == 'minecraft'){
+  if (topic == 'Minecraft'){
     col = 'messages2'
   }
 else  if (topic == 'amongus'){
@@ -128,7 +146,7 @@ theprompts[uuid] = history
 if (topic == 'roblox'){
   topic = 'mindcrack'
 }
-else if (topic == 'minecraft'){
+else if (topic == 'Minecraft'){
   topic = 'crazyideas'
 }
 else if (topic == 'AmongUs'){
@@ -299,25 +317,7 @@ if (c3 >1){
   tprompts2.push(uuid+": "+req.query.question)
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
-  async function addStore(sender, timestamp, text){
-    let child 
-    if (req.query.topic == 'roblox'){
-      child = 'messages'
-    } if (req.query.topic == 'minecraft'){
-      child = 'messages2'
-    }
-    if (req.query.topic == 'AmongUs'){
-      child = 'messages3'
-    }
-    
-    await setDoc(doc(db, child, Math.random().toString()), {
-    
-      text, 
-      timestamp, 
-      sender 
-    });
-    
-  }
+
   for (var bla of [theprompts[uuid][theprompts[uuid].length-2],theprompts[uuid][theprompts[uuid].length-1]]){
     addStore(uuid, new Date(), bla)
   }
