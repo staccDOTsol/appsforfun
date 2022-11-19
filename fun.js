@@ -199,13 +199,13 @@ const answer = await openai.createCompletion({
   console.log(answer.data.choices)
   await setDoc(doc(db, topic, new Date().toString()), {
   
-    text: 'User: ' + req.query.question + '!!!' ,
+    text: 'Francine: ' + req.query.question + '!!!' ,
     timestamp: new Date(), 
     sender: uuid
   });   
   await setDoc(doc(db, topic, new Date().toString()), {
   
-        text: 'You: ' + answer.data.choices[0].text+ '###', 
+        text: 'Carlos: ' + answer.data.choices[0].text+ '###', 
         timestamp: new Date(), 
         sender: uuid
       });
