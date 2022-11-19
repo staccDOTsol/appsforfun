@@ -9,7 +9,7 @@ let app = new express()
 let fetch = require('node-fetch') 
 const { Configuration, OpenAIApi } = require("openai");
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs, setDoc, query, where  } = require( 'firebase/firestore/lite' );
+const { getFirestore, collection, getDocs, setDoc, doc, query, where  } = require( 'firebase/firestore/lite' );
 
 var serviceAccount = require("./serviceAccountKey.json");
 console.log(serviceAccount)
