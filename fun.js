@@ -33,12 +33,15 @@ console.log(uuid)
   console.log(mSnapshot)
   let messageHistory = mSnapshot.docs.map(doc => doc.data().text);
   let tM = []
+  let tMM = []
   for (var m of messageHistory){
-    if (!tM.includes(m)){
-      tM.push(m)
+    
+    if (!tM.includes(m.replace('!!!','').replace('###',''))){
+      tM.push(m.replace('!!!','').replace('###',''))
+      tMM.push(m)
     }
   }
-  messageHistory = tM
+  messageHistory = tMM
   console.log(messageHistory)
   return ( messageHistory);
 } catch (err){
