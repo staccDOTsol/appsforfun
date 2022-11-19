@@ -127,7 +127,7 @@ if (req.query.question == 'image'){
     
     let topic = req.query.topic 
   
-let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\nFrancine: "+req.query.question+'!!!\n'+"Carlos: "
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.query.question+'!!!\n'
 
     console.log(prompt)
       const ress = await openai.createImage({
@@ -186,7 +186,7 @@ let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\nFrancine:
         }
       }
 
-let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\nFrancine: "+req.query.question+'!!!\n'+"Carlos: "
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.query.question+'!!!\n'
 console.log(prompt)
 const answer = await openai.createCompletion({
     model: "davinci:ft-personal-2022-11-19-20-53-39",
@@ -198,16 +198,22 @@ const answer = await openai.createCompletion({
     top_p: 0.4,
     frequency_penalty: 0.5,
     presence_penalty: 0.5,
-    n: 1,
+    n: 4,
     stop:["!!!"]
 
   });
-  
-  console.log(answer.data.choices)
+  let w = 0 
+  let winner 
+  for ( var  abc of answer.data.choices){
+    if (abc.text.length > w ){
+      w = abc.text.length 
+      winner = abc.text
+    }
+  }
 
   await setDoc(doc(db, topic, new Date().toString()), {
   
-        text: 'Carlos: ' + answer.data.choices[0].text+ '###', 
+        text: '' + winner + '###', 
         timestamp: new Date(), 
         sender: ''
       });
