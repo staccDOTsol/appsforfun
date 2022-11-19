@@ -44,7 +44,7 @@ console.log(uuid)
   console.log(mSnapshot)
   const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n',''));
   console.log(messageHistory)
-  return (messageHistory.length > 10 ? messageHistory[messageHistory.length-10, messageHistory.length] : messageHistory);
+  return ( messageHistory);
 } catch (err){
 return []  
 }
@@ -119,7 +119,7 @@ let winner
 let w = 0
 let c2 = 0
 let prompt = ""
-let history = await getConversation(db, topic, uuid) 
+let history = (await getConversation(db, topic, uuid)).join('\n\n')
 console.log(history)
 
 if (history.length == 0){
