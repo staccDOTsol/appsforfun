@@ -44,7 +44,7 @@ console.log(uuid)
   console.log(mSnapshot)
   const messageHistory = mSnapshot.docs.map(doc => doc.data().text.replace('\n','').replace('\n',''));
   console.log(messageHistory)
-  return (messageHistory[messageHistory.length-10, messageHistory.length]);
+  return (messageHistory.length > 10 ? messageHistory[messageHistory.length-10, messageHistory.length] : messageHistory);
 } catch (err){
 return []  
 }
@@ -67,7 +67,8 @@ app.get('/winnerwinnerchickumdinner', async function (req, res){
 let uuid = req.query.uuid
 
 let topic = req.query.topic 
-let prompt = (await getConversation(db, topic, uuid))
+let prompt = (await getConversation(db, topic, uuid)).join('\n\n')
+console.log(prompt)
   const ress = await openai.createImage({
     prompt: prompt ? prompt : 'test',
     n: 1,
@@ -124,13 +125,13 @@ if (history.length == 0){
     theprompts[uuid] = []
     let done = false 
 if (topic == 'roblox'){
-  topic = 'EroticRolePlay'
+  topic = 'mindcrack'
 }
 else if (topic == 'minecraft'){
-  topic = 'DirtyPenPals'
+  topic = 'crazyideas'
 }
 else if (topic == 'amongus'){
-  topic = 'dirtyr4r'
+  topic = 'showerthoughts'
 }
     let sample = await (await fetch("https://www.reddit.com/r/" + topic + "/search.json?sort=relevance&show=message&sort=num_comments&nsfw=1&limit=100&q="+req.query.question)).json()
     sample = sample.data.children 
@@ -200,12 +201,12 @@ let avg = t2 / lengths.length
      }
     console.log(tprompts)
      theprompts[uuid] = tprompts
-      prompt = "this is a chatbot that answers in an overtly attracted and brazen manner about " + topic + " with extremely adult or risquee responses.\n"
+      prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " with extreme variations on original input, while never including adult or risquee content.\n\n"
     
     }
 }
 else {
-    prompt = "this is a chatbot that answers in an overtly attracted and brazen manner about " + topic + " with extremely adult or risquee responses.\n"
+    prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " with extreme variations on original input, while never including adult or risquee content.\n\n"
 }
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
  console.log(prompt)
