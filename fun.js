@@ -297,9 +297,9 @@ const answer = await openai.createCompletion({
     prompt,
     temperature: 0.9,
     max_tokens: 600,
-    top_p: 0.1,
-    frequency_penalty: 0.1,
-    presence_penalty: 0.1
+    top_p: 0.3,
+    frequency_penalty: 0.4,
+    presence_penalty: 0.8
   });
    var tprompts2 = [] 
    let c3 = 0
