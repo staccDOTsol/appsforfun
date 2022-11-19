@@ -63,14 +63,14 @@ app.use(bodyParser())
 app.use(cors())
 let theprompts = {}
 app.get('/winnerwinnerchickumdinner', async function (req, res){
-
+try {
 let uuid = req.query.uuid
 
 let topic = req.query.topic 
-let prompt = (await getConversation(db, topic, uuid)).join('\n\n')
-console.log(prompt)
+let prompt = (await getConversation(db, topic, uuid))
+console.log(prompt.join('\n'))
   const ress = await openai.createImage({
-    prompt: prompt ? prompt : 'test',
+    prompt:prompt.length > 666 & prompt.substring(prompt.length-666, prompt.length),
     n: 1,
     size: "1024x1024",
   });
@@ -106,6 +106,9 @@ console.log(prompt)
        const link = `https://arweave.net/${result.id}`;
        res.send(link)
     } catch (err){
+      console.log(err)
+      res.send(500)
+    }} catch (err){
       console.log(err)
       res.send(500)
     }
@@ -211,11 +214,12 @@ else {
 }
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
  if (req.query.question == 'image'){
-  const ress = await openai.createImage({
-    prompt: prompt.split('\n')[prompt.split('\n').length-3,prompt.split('\n').length] ? prompt : 'test',
-    n: 1,
-    size: "1024x1024",
-  });
+  console.log(prompt.join('\n'))
+    const ress = await openai.createImage({
+      prompt:prompt.length > 666 & prompt.substring(prompt.length-666, prompt.length),
+      n: 1,
+      size: "1024x1024",
+    });
   let image_url = ress.data.data[0].url;
   let response = await fetch(image_url);
   let      blob = await response.blob();
