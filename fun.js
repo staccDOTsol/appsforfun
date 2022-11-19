@@ -304,10 +304,10 @@ if (c3 >1){
     if (req.query.topic == 'roblox'){
       child = 'messages'
     } if (req.query.topic == 'minecraft'){
-      child = 'messages1'
+      child = 'messages2'
     }
     if (req.query.topic == 'AmongUs'){
-      child = 'messages2'
+      child = 'messages3'
     }
     
     await setDoc(doc(db, child, Math.random().toString()), {
