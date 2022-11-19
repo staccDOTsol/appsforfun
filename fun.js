@@ -114,7 +114,7 @@ try {
 let uuid = req.query.uuid
 
 let topic = req.query.topic 
-let prompt =  await getConversation(db, topic, uuid).join('\n') + "\n"+req.query.question
+let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"+req.query.question
 
 const answer = await openai.createCompletion({
     model: "davinci:ft-personal-2022-11-19-20-53-39",
