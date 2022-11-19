@@ -23,13 +23,8 @@ const db = getFirestore(fb);
 // Get a list of cities from your database
 async function getConversation(db, topic, uuid) {
   try {
-  let col = 'messages'
-  if (topic == 'Minecraft'){
-    col = 'messages2'
-  }
-else  if (topic == 'AmongUs'){
-  col = 'messages3'
-}
+  let col = topic
+ 
 console.log(uuid)
   const mCol = collection(db, col);
   const q = query(mCol, orderBy("timestamp", "desc"), limit(10));
