@@ -31,9 +31,9 @@ else  if (topic == 'amongus'){
 }
   const mCol = collection(db, col);
   const q = query(mCol, where("uuid", "==", uuid));
-  const aSs = await getDocs(q);
-  if (aSs.length == 0){
-    return []
+      const aSs = await getDocs(q);
+      if (aSs.docs.map(doc => doc.data()).length == 0){
+        return []
   }
   const mSnapshot = await getDocs(mCol);
   const messageHistory = mSnapshot.docs.map(doc => doc.data());
