@@ -31,7 +31,14 @@ console.log(uuid)
 
   const mSnapshot = await getDocs(q);
   console.log(mSnapshot)
-  const messageHistory = mSnapshot.docs.map(doc => doc.data().text);
+  let messageHistory = mSnapshot.docs.map(doc => doc.data().text);
+  let tM = []
+  for (var m of messageHistory){
+    if (!tM.includes(m)){
+      tM.push(m)
+    }
+  }
+  messageHistory = tM
   console.log(messageHistory)
   return ( messageHistory);
 } catch (err){
@@ -188,7 +195,7 @@ const answer = await openai.createCompletion({
     King often uses authors as characters, or includes mention of fictional books in his stories, novellas and novels, such as Paul Sheldon, who is the main character in Misery, adult Bill Denbrough in It, Ben Mears in 'Salem's Lot, and Jack Torrance in The Shining. He has extended this to breaking the fourth wall by including himself as a character in The Dark Tower series from The Dark Tower V: Wolves of the Calla onwards. In September 2009 it was announced he would serve as a writer for Fangoria.[112]" + prompt,
     temperature: 0.9,
     max_tokens: 600,
-    top_p: 0.3,
+    top_p: 0.4,
     frequency_penalty: 0.5,
     presence_penalty: 0.5,
     n: 1,
