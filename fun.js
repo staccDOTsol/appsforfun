@@ -149,7 +149,7 @@ let theran = Math.floor(Math.random()* 100)
 let op = sample[theran].data.author 
 let authors = {}
 
-if(sample[theran].data.num_comments> 50){
+if(sample[theran].data.num_comments> 10){
     theprompts[uuid].push(op +": " + sample[theran].data.selftext.replace('\n',''))
 try {
     let thread = await (await fetch(sample[theran].data.url.substring(0, sample[theran].data.url.length-1) + '.json')).json()
