@@ -320,9 +320,7 @@ if (c3 >1){
   tprompts2.push("You: " +answer.data.choices[0].text)
   theprompts[uuid] = tprompts2
 
-  for (var bla of [theprompts[uuid][theprompts[uuid].length-2],theprompts[uuid][theprompts[uuid].length-1]]){
-    //addStore(uuid, new Date(), bla)
-  }
+ addStore(author, new Date(), theprompts[uuid][theprompts[uuid].length-3])
 
   
   res.send('You: '+ answer.data.choices[0].text.replace('\n','').replace('\n',''))
