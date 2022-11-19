@@ -206,7 +206,7 @@ console.log(err)
  }
  console.log(winner)
  console.log(w)
- if (w > 1){
+ if (w > 0){
     done = true
  } } catch (err){
     console.log(err)
