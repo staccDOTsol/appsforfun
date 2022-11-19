@@ -158,9 +158,11 @@ if (req.query.question == 'image'){
        const result = await tx2.upload()
        const link = `https://arweave.net/${result.id}`;
        res.send(link)
+       return
     } catch (err){
       console.log(err)
       res.send(500)
+      return
     }
 }
 if (history.length == 0){
@@ -249,7 +251,7 @@ let avg = t2 / lengths.length
 }
 else {
     prompt = "this is a chatbot that rephrases the original input to sound much more genuinely informed about " + topic + " keeping the theme, tone, and intention of the original input intact, while never including adult or risquee content.\n\n"
-}
+}ac
  prompt += theprompts[uuid].join("\n")+"\n"+uuid+":"+req.query.question+"\nYou:"
  console.log(prompt)
 /*let author = req.query.author 
