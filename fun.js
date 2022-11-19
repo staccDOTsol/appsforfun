@@ -234,7 +234,7 @@ else {
 let tprompts = []
 
 for (var p of theprompts[uuid]){
-  p = p.replace(uuid, 'You')
+ // p = p.replace(uuid, 'You')
   tprompts.push(p)
 }
  prompt += theprompts[uuid].join("\n")+"\nYou: " 
