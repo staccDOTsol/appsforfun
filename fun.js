@@ -51,8 +51,9 @@ app.use(bodyParser())
 app.use(cors())
 let theprompts = {}
 const fetch = require('node-fetch')
-async function infer(data, i) {
-	const response = await fetch(
+async function infer(data, i, oldresp) {
+	try {
+  const response = await fetch(
 		"https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
 		{
 			headers: { Authorization: "Bearer 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" },
@@ -64,11 +65,13 @@ async function infer(data, i) {
     let segments = result[0].generated_text.split('.')
     console.log(segments[segments.length-1].toString())
 if (i == 0 || segments.length == 1){
-        return infer({"inputs": segments[segments.length-1].toString()}, i+1)
+        return infer({"inputs": segments[segments.length-1].toString()}, i+1, segments[segments.length-1].toString())
 }else{
     return segments[segments.length-2].toString();
 }
-
+  } catch (err){
+    return oldresp
+  }
 	
 }
 
@@ -82,7 +85,7 @@ let topic = req.query.topic
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
-let text = await infer({"inputs": prompt}, 0)
+let text = await infer({"inputs": prompt}, 0, "")
 text = text.replace(prompt,'')//('\n')
 
   await setDoc(doc(db, topic, new Date().toString()), {
