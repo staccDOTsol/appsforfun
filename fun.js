@@ -66,7 +66,7 @@ async function infer(data, i) {
 if (i == 0 || segments.length == 1){
         return infer({"inputs": segments[segments.length-1].toString()}, i+1)
 }else{
-    return result[0].generated_text.split('\n')[0];
+    return result[0].generated_text.split('\n')[result[0].generated_text.split('\n').length-1];
 }
 
 	
