@@ -70,7 +70,7 @@ async function infer(prompt, data, i, oldresp) {
       return segments[segments.length-1].toString();
     }
 if (i == 0 || (segments.length == 1) ){
-        return infer(prompt, {"inputs": segments[segments.length-1].toString()}, i+1, segments[segments.length-1].toString())
+        return infer(prompt, {"inputs": data.inputs}, i+1, segments[segments.length-1].toString())
 }else{
     return segments[segments.length-2].toString() + '\n' +  segments[segments.length-1].toString();
 }
