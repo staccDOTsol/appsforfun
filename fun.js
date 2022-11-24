@@ -42,8 +42,7 @@ async function getConversation(db, topic, uuid) {
     for (var m of messageHistory) {
       if (
         !tM.includes(m.replace("\n", "").replace("###", "")) &&
-        m.replace("\n", "").replace("###", "").length > 2 &&
-        m.replace("\n", "").replace("###", "").length < 50
+        m.replace("\n", "").replace("###", "").length > 2
       ) {
         tM.push(m.replace("\n", "").replace("###", ""));
         tMM.push(m);
@@ -83,7 +82,7 @@ async function infer(prompt, data, i, oldresp) {
     if (i == 0 || segments.length == 1) {
       return infer(
         prompt,
-        { inputs: data.inputs + segments[segments.length - 1].toString() },
+        { inputs:  segments[segments.length - 1].toString() },
         i + 1,
         segments[segments.length - 1].toString()
       );
