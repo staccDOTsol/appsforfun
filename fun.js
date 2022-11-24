@@ -52,6 +52,7 @@ app.use(cors())
 let theprompts = {}
 const fetch = require('node-fetch')
 async function infer(prompt, data, i, oldresp) {
+  data = data.split('\n\n').join('\n')
 	try {
   const response = await fetch(
 		"https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
