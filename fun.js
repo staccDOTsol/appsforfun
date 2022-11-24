@@ -62,9 +62,9 @@ async function infer(prompt, data, i, oldresp) {
 		}
 	);
 	const result = await response.json();
-    let segments = result[0].generated_text.replace(prompt,'').split('.')
-    let segments2 = result[0].generated_text.replace(prompt,'').split('\n')
-    console.log(segments[segments.length-1].toString())
+    let segments = result[0].generated_text.split('.')
+    let segments2 = result[0].generated_text.split('\n')
+    oldresp = (segments[segments.length-1].toString())
     if (i > 18){
       return segments[segments.length-1].toString();
     }
@@ -89,7 +89,7 @@ let topic = req.query.topic
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
-let text = await infer(prompt, {"inputs": prompt}, 0, "")
+let text = await infer(prompt, {"inputs": prompt.replace('\n',',').replace('.',',')}, 0, "")
 text = text.replace(prompt,'').split('\n').join(' ')
 
   await setDoc(doc(db, topic, new Date().toString()), {
