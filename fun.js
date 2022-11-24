@@ -52,7 +52,6 @@ app.use(cors())
 let theprompts = {}
 const fetch = require('node-fetch')
 async function infer(prompt, data, i, oldresp) {
-  data.inputs = data.inputs.split('\n').join(', ')
 	try {
   const response = await fetch(
 		"https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
@@ -63,7 +62,7 @@ async function infer(prompt, data, i, oldresp) {
 		}
 	);
 	const result = await response.json();
-    let segments = result[0].generated_text.split('\n')
+    let segments = result[0].generated_text.replace(prompt, '').split('\n')
     oldresp = (segments[segments.length-1].toString())
     console.log(oldresp)
     if (i > 18){
