@@ -64,7 +64,7 @@ async function infer(data, i, oldresp) {
 	const result = await response.json();
     let segments = result[0].generated_text.split('.')
     console.log(segments[segments.length-1].toString())
-    if (i > 8){
+    if (i > 18){
       return segments[segments.length-1].toString();
     }
 if (i == 0 || segments.length == 1){
