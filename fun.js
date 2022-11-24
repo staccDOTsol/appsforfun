@@ -90,7 +90,7 @@ let text = await infer({"inputs": prompt}, 0)
         timestamp: new Date(), 
         sender: ''
       });
-  res.send( 200 )
+  res.send( text )
 
 }
  catch (err) 
