@@ -89,7 +89,7 @@ let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
 let text = await infer({"inputs": prompt}, 0, "")
-text = text.replace(prompt,'').split('\n'),join(' ')
+text = text.replace(prompt,'').split('\n').join(' ')
 
   await setDoc(doc(db, topic, new Date().toString()), {
   
