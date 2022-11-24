@@ -34,8 +34,8 @@ console.log(uuid)
   let tMM = []
   for (var m of messageHistory){
     
-    if (!tM.includes(m.replace('\N','').replace('###',''))){
-      tM.push(m.replace('\N','').replace('###',''))
+    if (!tM.includes(m.replace('\n','').replace('###',''))){
+      tM.push(m.replace('\n','').replace('###',''))
       tMM.push(m)
     }
   }
@@ -62,11 +62,11 @@ async function infer(data, i) {
 	);
 	const result = await response.json();
     let segments = result[0].generated_text.split('.')
-    console.log(segments[segments.length-1].toString())
+    console.log(segments[segments.length-2].toString())
 if (i == 0 || segments.length == 1){
         return infer({"inputs": segments[segments.length-1].toString()}, i+1)
 }else{
-    return segments[segments.length-1].toString();
+    return segments[segments.length-2].toString();
 }
 
 	
