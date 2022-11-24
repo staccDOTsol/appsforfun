@@ -91,8 +91,8 @@ let topic = req.query.topic
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
-let text = await infer(prompt + '\nYou: ', {"inputs": prompt + '\nYou: '}, 0, "")
-text = text.replace(prompt + '\nYou: ','')
+let text = await infer(prompt + '\n', {"inputs": prompt + '\n'}, 0, "")
+text = text.replace(prompt + '\n','')
 
   await setDoc(doc(db, topic, new Date().toString()), {
   
