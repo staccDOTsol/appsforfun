@@ -51,7 +51,7 @@ app.use(bodyParser())
 app.use(cors())
 let theprompts = {}
 const fetch = require('node-fetch')
-async function infer(data, i, oldresp) {
+async function infer(prompt, data, i, oldresp) {
 	try {
   const response = await fetch(
 		"https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
@@ -62,13 +62,14 @@ async function infer(data, i, oldresp) {
 		}
 	);
 	const result = await response.json();
-    let segments = result[0].generated_text.split('.')
+    let segments = result[0].generated_text.replace(prompt,'').split('.')
+    let segments2 = result[0].generated_text.replace(prompt,'').split('\n')
     console.log(segments[segments.length-1].toString())
     if (i > 18){
       return segments[segments.length-1].toString();
     }
-if (i == 0 || segments.length == 1){
-        return infer({"inputs": segments[segments.length-1].toString()}, i+1, segments[segments.length-1].toString())
+if (i == 0 || (segments.length == 1 && segments2.length ==1) ){
+        return infer(prompt, {"inputs": segments[segments.length-1].toString()}, i+1, segments[segments.length-1].toString())
 }else{
     return segments[segments.length-2].toString() + '\n' +  segments[segments.length-1].toString();
 }
@@ -88,7 +89,7 @@ let topic = req.query.topic
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
-let text = await infer({"inputs": prompt}, 0, "")
+let text = await infer(prompt, {"inputs": prompt}, 0, "")
 text = text.replace(prompt,'').split('\n').join(' ')
 
   await setDoc(doc(db, topic, new Date().toString()), {
