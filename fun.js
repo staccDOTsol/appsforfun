@@ -73,6 +73,7 @@ async function infer(prompt, data, i, oldresp) {
       }
     );
     const result = await response.json();
+    console.log(result)
     let segments = result[0].generated_text.replace(prompt, "").split("\n");
     oldresp = segments[segments.length - 1].toString();
     console.log(oldresp);
