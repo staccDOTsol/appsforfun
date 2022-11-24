@@ -62,7 +62,7 @@ async function infer(prompt, data, i, oldresp) {
 		}
 	);
 	const result = await response.json();
-    let segments = result[0].generated_text.split(',')[result[0].generated_text.split(',').length-1].split('.')
+    let segments = result[0].generated_text.split('.')
     oldresp = (segments[segments.length-1].toString())
     if (i > 18){
       return segments[segments.length-1].toString();
