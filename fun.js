@@ -74,7 +74,7 @@ async function infer(prompt, data, i, oldresp) {
     );
     const result = await response.json();
     console.log(result)
-    let segments = result[0].generated_text.replace(prompt, "").split("\n");
+    let segments = result[0].generated_text.replace(prompt, "").split('.');
     oldresp = segments[segments.length - 1].toString();
     console.log(oldresp);
     if (i > 18) {
@@ -89,7 +89,7 @@ async function infer(prompt, data, i, oldresp) {
       );
     } else {
       return (
-        segments[segments.length - 1].toString()
+        segments[segments.length - 2].toString()
       );
     }
   } catch (err) {
