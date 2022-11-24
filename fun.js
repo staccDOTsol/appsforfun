@@ -34,7 +34,7 @@ console.log(uuid)
   let tMM = []
   for (var m of messageHistory){
     
-    if (!tM.includes(m.replace('\n','').replace('###',''))){
+    if (!tM.includes(m.replace('\n','').replace('###','')) && m.replace('\n','').replace('###','').length > 2){
       tM.push(m.replace('\n','').replace('###',''))
       tMM.push(m)
     }
@@ -46,7 +46,7 @@ console.log(uuid)
 return []  
 }
 }
-
+ 
 app.use(bodyParser())
 app.use(cors())
 let theprompts = {}
