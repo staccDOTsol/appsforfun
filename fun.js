@@ -70,7 +70,7 @@ async function infer(data, i, oldresp) {
 if (i == 0 || segments.length == 1){
         return infer({"inputs": segments[segments.length-1].toString()}, i+1, segments[segments.length-1].toString())
 }else{
-    return segments[segments.length-2].toString();
+    return segments[segments.length-2].toString() + '\n' +  segments[segments.length-1].toString();
 }
   } catch (err){
     return oldresp
