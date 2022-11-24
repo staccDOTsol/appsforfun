@@ -42,7 +42,8 @@ async function getConversation(db, topic, uuid) {
     for (var m of messageHistory) {
       if (
         !tM.includes(m.replace("\n", "").replace("###", "")) &&
-        m.replace("\n", "").replace("###", "").length > 2
+        m.replace("\n", "").replace("###", "").length > 2 &&
+        m.replace("\n", "").replace("###", "").length < 50
       ) {
         tM.push(m.replace("\n", "").replace("###", ""));
         tMM.push(m);
