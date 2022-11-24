@@ -6,8 +6,6 @@ const fs = require('fs')
 let express = require('express')
 const cors = require('cors')
 let app = new express()
-let fetch = require('node-fetch') 
-const { Configuration, OpenAIApi } = require("openai");
 const { initializeApp } = require('firebase/app');
 const { getFirestore, collection, getDocs, orderBy, limit,setDoc, doc, query, where  } = require( 'firebase/firestore/lite' );
 
@@ -49,165 +47,46 @@ return []
 }
 }
 
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-
-
-const openai = new OpenAIApi(configuration);
-
 app.use(bodyParser())
 app.use(cors())
 let theprompts = {}
-app.get('/winnerwinnerchickumdinner', async function (req, res){
-try {
-let uuid = req.query.uuid
+const fetch = require('node-fetch')
+async function infer(data, i) {
+	const response = await fetch(
+		"https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
+		{
+			headers: { Authorization: "Bearer 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" },
+			method: "POST",
+			body: JSON.stringify(data),
+		}
+	);
+	const result = await response.json();
+    console.log(result)
+    let segments = result[0].generated_text.split('\n')
+if (i == 0 || segments.length == 1){
+        return infer({"inputs": segments[segments.length-1].toString()}, i+1)
+}else{
+    return result[0].generated_text;
+}
 
-let topic = req.query.topic 
-let prompt = (await getConversation(db, topic, uuid))
-prompt = (prompt.join('\n'))
-  const ress = await openai.createImage({
-    prompt:prompt.length > 1666 ? prompt.substring(prompt.length-1666, prompt.length) : prompt,
-    n: 1,
-    size: "1024x1024",
-  });
-  let image_url = ress.data.data[0].url;
-  let response = await fetch(image_url);
-  let      blob = await response.blob();
-   
-  let arrayBuffer = await blob.arrayBuffer();
-   
+	
+}
 
-  let  buffer = Buffer.from(arrayBuffer);
-    let dt138 = new Date()+'.png'
-    await fs.writeFileSync(dt138, buffer)
-    try {
-      const bundlr = new Bundlr("https://node1.bundlr.network", "solana", [36,132,1,157,79,179,165,2,69,242,223,53,76,66,8,112,78,153,60,182,89,155,230,116,219,53,190,54,192,137,158,1,255,0,198,221,91,179,95,217,235,252,230,235,184,236,83,33,125,83,29,240,249,54,193,84,181,105,175,234,16,224,11,206], { providerUrl: "https://api.mainnet-beta.solana.com" });
-      let recipeBuffer = fs.readFileSync(dt138)
-     
-       const tx2 = bundlr.createTransaction(recipeBuffer)
-     
-       // want to know how much you'll need for an upload? simply:
-       // get the number of bytes you want to upload
-       const size = tx2.size
-       // query the bundlr node to see the price for that amount
-       const cost = await bundlr.getPrice(size);
-       const fundStatus = await bundlr.fund(Math.ceil(cost.toNumber()))
-       console.log(fundStatus)
-       // sign the transaction
-       await tx2.sign()
-       // get the transaction's ID:
-       const id = tx2.id
-       // upload the transaction
-       const result = await tx2.upload()
-       const link = `https://arweave.net/${result.id}`;
 
-       await setDoc(doc(db, topic, new Date().toString()), {
-  
-        text: link, 
-        timestamp: new Date(), 
-        sender: "Stranger" 
-      });
-      res.send(200)
-    } catch (err){
-      console.log(err.response.data.error)
-      res.send(500)
-    }} catch (err){
-      console.log(err.response.data.error)
-      res.send(500)
-    }
-})
 app.get('/', async function(req, res){
 try {
 let uuid = req.query.uuid
 
 let topic = req.query.topic 
-if (req.query.question == 'image'){
-  try {
-    let uuid = req.query.uuid
-    
-    let topic = req.query.topic 
-  
-let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
-
-    console.log(prompt)
-      const ress = await openai.createImage({
-        prompt:prompt.length > 1666 ? prompt.substring(prompt.length-1666, prompt.length) : prompt,
-        n: 1,
-        size: "1024x1024",
-      });
-      let image_url = ress.data.data[0].url;
-      let response = await fetch(image_url);
-      let      blob = await response.blob();
-       
-      let arrayBuffer = await blob.arrayBuffer();
-       
-    
-      let  buffer = Buffer.from(arrayBuffer);
-        let dt138 = new Date()+'.png'
-        await fs.writeFileSync(dt138, buffer)
-        try {
-          const bundlr = new Bundlr("https://node1.bundlr.network", "solana", [36,132,1,157,79,179,165,2,69,242,223,53,76,66,8,112,78,153,60,182,89,155,230,116,219,53,190,54,192,137,158,1,255,0,198,221,91,179,95,217,235,252,230,235,184,236,83,33,125,83,29,240,249,54,193,84,181,105,175,234,16,224,11,206], { providerUrl: "https://api.mainnet-beta.solana.com" });
-          let recipeBuffer = fs.readFileSync(dt138)
-         
-           const tx2 = bundlr.createTransaction(recipeBuffer)
-         
-           // want to know how much you'll need for an upload? simply:
-           // get the number of bytes you want to upload
-           const size = tx2.size
-           // query the bundlr node to see the price for that amount
-           const cost = await bundlr.getPrice(size);
-           const fundStatus = await bundlr.fund(Math.ceil(cost.toNumber()))
-           console.log(fundStatus)
-           // sign the transaction
-           await tx2.sign()
-           // get the transaction's ID:
-           const id = tx2.id
-           // upload the transaction
-           const result = await tx2.upload()
-           const link = `https://arweave.net/${result.id}`;
-    
-           await setDoc(doc(db, topic, new Date().toString()), {
-      
-            text: link, 
-            timestamp: new Date(), 
-            sender: "Stranger" 
-          });
-          res.send(200)
-          return
-        } catch (err){
-          console.log(err)
-          res.send(500)
-          return
-        }} catch (err){
-
-          console.log(err.response.data.error)
-                    res.send(500)
-          return
-        }
-      }
 
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 console.log(prompt)
-const answer = await openai.createCompletion({
-    model: "davinci:ft-personal-2022-11-19-20-53-39",
-    prompt: prompt,
-    temperature: 0.5,
-    max_tokens: 60,
-    top_p: 0.3,
-    frequency_penalty: 0.5,
-    presence_penalty: 0,
-    n: 4,
-    stop:["!!!"]
 
-  });
-  let winner = answer.data.choices[Math.floor(Math.random()*answer.data.choices.length)]
 
+let text = await infer({"inputs": prompt}, 0)
   await setDoc(doc(db, topic, new Date().toString()), {
   
-        text: '' + winner + '###', 
+        text,
         timestamp: new Date(), 
         sender: ''
       });
