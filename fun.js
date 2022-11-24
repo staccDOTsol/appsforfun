@@ -34,8 +34,8 @@ console.log(uuid)
   let tMM = []
   for (var m of messageHistory){
     
-    if (!tM.includes(m.replace('!!!','').replace('###',''))){
-      tM.push(m.replace('!!!','').replace('###',''))
+    if (!tM.includes(m.replace('\N','').replace('###',''))){
+      tM.push(m.replace('\N','').replace('###',''))
       tMM.push(m)
     }
   }
@@ -90,7 +90,7 @@ let text = await infer({"inputs": prompt}, 0)
         timestamp: new Date(), 
         sender: ''
       });
-  res.send( winner )
+  res.send( 200 )
 
 }
  catch (err) 
