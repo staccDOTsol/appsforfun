@@ -62,11 +62,11 @@ async function infer(data, i) {
 	);
 	const result = await response.json();
     console.log(result)
-    let segments = result[0].generated_text.split('.')
+    let segments = result[0].generated_text.split('')
 if (i == 0 || segments.length == 1){
         return infer({"inputs": segments[segments.length-1].toString()}, i+1)
 }else{
-    return result[0].generated_text.split('.')[result[0].generated_text.split('.').length-1];
+    return result[0].generated_text.split('.')[result[0].generated_text.split('.').length-2];
 }
 
 	
