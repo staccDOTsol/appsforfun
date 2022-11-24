@@ -25,11 +25,11 @@ async function getConversation(db, topic, uuid) {
  
 console.log(uuid)
   const mCol = collection(db, col);
-  const q = query(mCol, orderBy("timestamp", "desc"), limit(20));
+  const q = query(mCol, orderBy("timestamp", "desc"), limit(5));
 
   const mSnapshot = await getDocs(q);
   console.log(mSnapshot)
-  let messageHistory = mSnapshot.docs.map(doc => doc.data().text);
+  let messageHistory = mSnapshot.docs.map(doc => doc.data().text).reverse();
   let tM = []
   let tMM = []
   for (var m of messageHistory){
