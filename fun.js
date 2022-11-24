@@ -80,10 +80,10 @@ let uuid = req.query.uuid
 let topic = req.query.topic 
 
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
-console.log(prompt)
 
 
 let text = await infer({"inputs": prompt}, 0)
+console.log(text)
   await setDoc(doc(db, topic, new Date().toString()), {
   
         text,
