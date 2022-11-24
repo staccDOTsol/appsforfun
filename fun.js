@@ -88,7 +88,7 @@ let topic = req.query.topic
 let prompt =  (await getConversation(db, topic, uuid)).join('\n') + "\n"
 
 
-let text = await infer(prompt, {"inputs": prompt.replace('\n',',').replace('.',',')}, 0, "")
+let text = await infer(prompt, {"inputs": prompt.replace('\n',',')}, 0, "")
 text = text.replace(prompt,'').split('\n').join(' ')
 
   await setDoc(doc(db, topic, new Date().toString()), {
