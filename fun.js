@@ -63,7 +63,7 @@ const fetch = require("node-fetch");
 async function infer(prompt, data, i, oldresp) {
   try {
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-large-stacc-horror",
+      "https://api-inference.huggingface.co/models/staccdotsol/DialoGPT-medium-horror",
       {
         headers: {
           Authorization: "Bearer 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",
