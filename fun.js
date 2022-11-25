@@ -77,7 +77,7 @@ async function infer(prompt, data, i, oldresp) {
     let segments = result[0].generated_text.replace(prompt, "").split('.');
     oldresp = segments[segments.length - 1].toString();
     console.log(oldresp);
-    if (i > 18) {
+    if (i > 100) {
       return segments[segments.length - 1].toString();
     }
     if (i == 0 || segments.length == 1) {
